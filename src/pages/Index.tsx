@@ -1,34 +1,14 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '@/context/AuthContext';
 import { Button } from '@/components/ui/button';
 import { GraduationCap, Users, Calendar, Building } from 'lucide-react';
 
 const Index = () => {
-  const { isAuthenticated, currentUser } = useAuth();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (isAuthenticated && currentUser) {
-      // Redirect to appropriate dashboard based on role
-      switch (currentUser.role) {
-        case 'student':
-          navigate('/student/dashboard');
-          break;
-        case 'mentor':
-          navigate('/mentor/dashboard');
-          break;
-        case 'placement_officer':
-          navigate('/placement/dashboard');
-          break;
-        case 'employer':
-          navigate('/employer/dashboard');
-          break;
-        default:
-          navigate('/login');
-      }
-    }
-  }, [isAuthenticated, currentUser, navigate]);
+  const handleGetStarted = () => {
+    navigate('/login');
+  };
 
   return (
     <div className="min-h-screen bg-gradient-hero">
@@ -69,7 +49,7 @@ const Index = () => {
           <div className="mt-12">
             <Button 
               size="lg" 
-              onClick={() => navigate('/login')}
+              onClick={handleGetStarted}
               className="bg-primary-foreground text-primary hover:bg-primary-foreground/90"
             >
               Get Started

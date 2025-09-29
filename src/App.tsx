@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/context/AuthContext";
 import { AppProvider } from "@/context/AppContext";
+import { AuthRedirect } from "@/components/AuthRedirect";
 import { Login } from "@/components/Login";
 import { StudentDashboard } from "@/pages/Student/StudentDashboard";
 import { JobListings } from "@/pages/Student/JobListings";
@@ -16,7 +17,6 @@ import { PlacementDashboard } from "@/pages/Placement/PlacementDashboard";
 import { InterviewScheduling } from "@/pages/Placement/InterviewScheduling";
 import { EmployerDashboard } from "@/pages/Employer/EmployerDashboard";
 import { PostJob } from "@/pages/Employer/PostJob";
-import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -30,7 +30,7 @@ const App = () => (
         <AppProvider>
           <BrowserRouter>
             <Routes>
-              <Route path="/" element={<Index />} />
+              <Route path="/" element={<AuthRedirect />} />
               <Route path="/login" element={<Login />} />
               
               {/* Student Routes */}
