@@ -3,6 +3,19 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { AuthProvider } from "@/context/AuthContext";
+import { AppProvider } from "@/context/AppContext";
+import { Login } from "@/components/Login";
+import { StudentDashboard } from "@/pages/Student/StudentDashboard";
+import { JobListings } from "@/pages/Student/JobListings";
+import { StudentApplications } from "@/pages/Student/StudentApplications";
+import { StudentProfile } from "@/pages/Student/StudentProfile";
+import { MentorDashboard } from "@/pages/Mentor/MentorDashboard";
+import { MentorApprovals } from "@/pages/Mentor/MentorApprovals";
+import { PlacementDashboard } from "@/pages/Placement/PlacementDashboard";
+import { InterviewScheduling } from "@/pages/Placement/InterviewScheduling";
+import { EmployerDashboard } from "@/pages/Employer/EmployerDashboard";
+import { PostJob } from "@/pages/Employer/PostJob";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 
@@ -13,13 +26,36 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
+      <AuthProvider>
+        <AppProvider>
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="/login" element={<Login />} />
+              
+              {/* Student Routes */}
+              <Route path="/student/dashboard" element={<StudentDashboard />} />
+              <Route path="/student/jobs" element={<JobListings />} />
+              <Route path="/student/applications" element={<StudentApplications />} />
+              <Route path="/student/profile" element={<StudentProfile />} />
+              
+              {/* Mentor Routes */}
+              <Route path="/mentor/dashboard" element={<MentorDashboard />} />
+              <Route path="/mentor/approvals" element={<MentorApprovals />} />
+              
+              {/* Placement Officer Routes */}
+              <Route path="/placement/dashboard" element={<PlacementDashboard />} />
+              <Route path="/placement/interviews" element={<InterviewScheduling />} />
+              
+              {/* Employer Routes */}
+              <Route path="/employer/dashboard" element={<EmployerDashboard />} />
+              <Route path="/employer/post-job" element={<PostJob />} />
+              
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </BrowserRouter>
+        </AppProvider>
+      </AuthProvider>
     </TooltipProvider>
   </QueryClientProvider>
 );
